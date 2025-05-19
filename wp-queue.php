@@ -25,7 +25,10 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 global $wpqueue_db_version;
 $wpqueue_db_version = '1.0.0';
 
-register_activation_hook( __FILE__, 'wp_queue_options' );
+// this might be loaded without WordPress context.
+if ( function_exists( 'register_activation_hook') ) {
+	register_activation_hook( __FILE__, 'wp_queue_options' );
+}
 require_once trailingslashit( dirname( __FILE__ ) ) . 'autoloader.php';
 
 if ( ! function_exists( 'wp_queue_prep_major_change' ) ) {
